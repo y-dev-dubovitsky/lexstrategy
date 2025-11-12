@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Колонка 1: О компании */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Юргруп</h3>
+            <h3 className="text-xl font-bold mb-4">Юридическая фирма</h3>
             <p className="text-gray-400 mb-4">
               Профессиональные юридические услуги для бизнеса и частных лиц. 
               Ваша уверенность в правовой безопасности.
@@ -76,7 +76,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-2 md:mb-0">
-              © {currentYear} Юргруп. Все права защищены.
+              © {currentYear} Юридическая фирма. Все права защищены.
             </div>
             <div className="flex space-x-6 text-sm text-gray-400">
               <button className="hover:text-white transition duration-200">Политика конфиденциальности</button>

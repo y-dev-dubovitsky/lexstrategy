@@ -42,7 +42,7 @@ const Header = () => {
           {/* Логотип */}
           <div className="flex items-center">
             <span className={`text-2xl font-bold ${isScrolled ? 'text-gray-900' : 'text-white'}`}>
-              Юргруп
+              Юридическая фирма
             </span>
           </div>
 
