@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/lexstrategy/static/css/main.2be009f2.css",
-    "main.js": "/lexstrategy/static/js/main.b26faab0.js",
+    "main.js": "/lexstrategy/static/js/main.6e4e4285.js",
     "static/js/453.c1b78777.chunk.js": "/lexstrategy/static/js/453.c1b78777.chunk.js",
     "static/media/123.jpg": "/lexstrategy/static/media/123.c87fb99ccdda3ee591fd.jpg",
     "static/media/jpg": "/lexstrategy/static/media/5321365833395146140.639a62feee0a4cdeebde.jpg",
     "index.html": "/lexstrategy/index.html",
     "main.2be009f2.css.map": "/lexstrategy/static/css/main.2be009f2.css.map",
-    "main.b26faab0.js.map": "/lexstrategy/static/js/main.b26faab0.js.map",
+    "main.6e4e4285.js.map": "/lexstrategy/static/js/main.6e4e4285.js.map",
     "453.c1b78777.chunk.js.map": "/lexstrategy/static/js/453.c1b78777.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2be009f2.css",
-    "static/js/main.b26faab0.js"
+    "static/js/main.6e4e4285.js"
   ]
 }
