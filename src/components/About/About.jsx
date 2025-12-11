@@ -1,47 +1,64 @@
 // components/About.jsx
-import { CheckBadgeIcon, TrophyIcon, HeartIcon, ShieldCheckIcon, ClockIcon, UserGroupIcon, StarIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
-import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
+import { 
+  CubeIcon, 
+  CursorArrowRaysIcon,
+  ChartBarIcon,
+  ShieldCheckIcon,
+  ClockIcon,
+  UserGroupIcon,
+  ArrowPathIcon,
+  BoltIcon,
+  SparklesIcon,
+  LightBulbIcon
+} from '@heroicons/react/24/outline';
 import { useState, useEffect, useRef } from 'react';
 import groupPhoto from '../../assets/123.jpg';
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [currentStat, setCurrentStat] = useState(0);
+  const [currentMetric, setCurrentMetric] = useState(0);
+  const [hoveredFeature, setHoveredFeature] = useState(null);
   const sectionRef = useRef(null);
 
-  const stats = [
-    { number: '50+', label: 'Успешных кейсов', icon: TrophyIcon, color: 'text-yellow-500', bg: 'bg-yellow-100' },
-    { number: '8+', label: 'Лет опыта', icon: ClockIcon, color: 'text-blue-500', bg: 'bg-blue-100' },
-    { number: '95%', label: 'Довольных клиентов', icon: HeartIcon, color: 'text-red-500', bg: 'bg-red-100' },
-    { number: '100%', label: 'Конфиденциальность', icon: ShieldCheckIcon, color: 'text-green-500', bg: 'bg-green-100' },
+  const metrics = [
+    { number: '300+', label: 'Стратегических проектов', change: '+12%', color: 'from-emerald-500 to-emerald-300' },
+    { number: '8 лет', label: 'Глубокой экспертизы', change: 'в 12 странах', color: 'from-cyan-500 to-cyan-300' },
+    { number: '95%', label: 'Результативности', change: 'сверх цели', color: 'from-violet-500 to-violet-300' },
+    { number: '24/7', label: 'Доступность команды', change: 'средний ответ 15м', color: 'from-amber-500 to-amber-300' },
   ];
 
   const features = [
     {
-      title: "Глубокая экспертиза",
-      description: "Специализируемся на сложных корпоративных и налоговых спорах",
-      icon: CheckBadgeIcon,
-      delay: 200
+      title: "Стратегическая аналитика",
+      description: "Глубокий анализ бизнес-процессов и правовых рисков",
+      icon: ChartBarIcon,
+      color: 'emerald'
     },
     {
-      title: "Индивидуальный подход",
-      description: "Разрабатываем персональные стратегии для каждого клиента",
-      icon: UserGroupIcon,
-      delay: 400
+      title: "Системный подход",
+      description: "Комплексные решения вместо точечных исправлений",
+      icon: CubeIcon,
+      color: 'cyan'
     },
     {
-      title: "Прозрачность работы",
-      description: "Вы всегда в курсе этапов работы и результатов",
+      title: "Технологическая экспертиза",
+      description: "Правовое сопровождение цифровой трансформации",
+      icon: CursorArrowRaysIcon,
+      color: 'violet'
+    },
+    {
+      title: "Проактивная защита",
+      description: "Предупреждение рисков до их возникновения",
       icon: ShieldCheckIcon,
-      delay: 600
+      color: 'amber'
     }
   ];
 
   const achievements = [
-    "Топ-100 юристов России по версии Legal Awards",
-    "Более 200 успешных сделок M&A",
-    "Эксперты в международном арбитраже",
-    "Спикеры ведущих юридических форумов"
+    { text: "Лидеры по сложным корпоративным сделкам в СНГ", year: "2023" },
+    { text: "Трансформация юридических отделов для Fortune 500", year: "2022" },
+    { text: "Пионеры в правовом сопровождении AI проектов", year: "2021" },
+    { text: "Интеграция blockchain-решений в корпоративное право", year: "2020" }
   ];
 
   useEffect(() => {
@@ -51,7 +68,7 @@ const About = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     if (sectionRef.current) {
@@ -63,218 +80,351 @@ const About = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentStat((prev) => (prev + 1) % stats.length);
-    }, 3000);
+      setCurrentMetric((prev) => (prev + 1) % metrics.length);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50/50 relative overflow-hidden">
-      {/* Анимированный фон */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-blue-200/10 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-200/10 rounded-full blur-3xl animate-float-slower"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-100/5 rounded-full blur-2xl"></div>
+    <section id="about" ref={sectionRef} className="py-20 lg:py-32 bg-black relative overflow-hidden">
+      {/* Геометрический фон */}
+      <div className="absolute inset-0 opacity-30">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid-small" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#10b981" strokeWidth="0.3" />
+            </pattern>
+            <radialGradient id="gradient-center" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#10b981" stopOpacity="0.1" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-small)" />
+          <circle cx="50%" cy="50%" r="40%" fill="url(#gradient-center)" />
+        </svg>
       </div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Текстовый блок */}
-          <div className={`transform transition-all duration-1000 delay-300 ${
-            isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
+
+      {/* Анимированные элементы фона */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 border border-emerald-500/10 rounded-full animate-spin-slow"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-48 h-48 border border-cyan-500/10 rotate-45 animate-spin-slower"></div>
+        {[...Array(12)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-px h-20 bg-gradient-to-b from-emerald-500/20 via-cyan-500/20 to-transparent"
+            style={{
+              left: `${(i + 1) * 8.33}%`,
+              animation: `scanVertical ${3 + i * 0.2}s ease-in-out infinite ${i * 0.1}s`
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        {/* Заголовок */}
+        <div className="text-center mb-16 lg:mb-24">
+          <div className={`inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 rounded-full px-5 py-2 mb-6 transition-all duration-1000 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
-            {/* Заголовок с градиентом */}
-            <div className="mb-8">
-              <span className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full mb-4 border border-blue-200">
-                О компании
+            <CubeIcon className="h-4 w-4 text-emerald-400" />
+            <span className="text-sm font-medium tracking-wider text-emerald-300">
+              СТРАТЕГИЧЕСКИЙ ПОДХОД
+            </span>
+          </div>
+
+          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight transition-all duration-1000 delay-200 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}>
+            <span className="block">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-emerald-100 to-cyan-100">
+                Архитекторы
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent">
-                Команда 
-                <span className="block text-blue-600">профессионалов</span>
-              </h2>
-            </div>
+            </span>
+            <span className="block mt-2">
+              <span className="relative">
+                <span className="absolute -inset-1 bg-gradient-to-r from-emerald-600/20 to-cyan-600/20 blur-xl rounded-full"></span>
+                <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-cyan-300 to-white">
+                  правовой трансформации
+                </span>
+              </span>
+            </span>
+          </h2>
 
+          <p className={`text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light transition-all duration-1000 delay-400 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+          }`}>
+            Мы не просто юристы. Мы — инженеры правовых решений, 
+            которые строят фундамент для вашего устойчивого роста
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          {/* Левый блок - Текст и метрики */}
+          <div>
             {/* Основной текст */}
-            <div className="space-y-6 mb-8">
-              <p className="text-xl text-gray-700 leading-relaxed font-medium">
-                Мы — <span className="text-blue-600 font-semibold">сплоченная команда высококлассных юристов</span> с многолетним опытом 
-                в решении самых сложных правовых задач. Наш подход сочетает глубокую отраслевую экспертизу, 
-                индивидуальное внимание к каждому клиенту и бескомпромиссную нацеленность на результат.
+            <div className={`space-y-6 mb-12 transition-all duration-1000 delay-600 ${
+              isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
+            }`}>
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                В эпоху цифровой трансформации традиционные правовые решения перестают работать. 
+                <span className="text-emerald-300 font-medium"> Мы создаем новую парадигму</span> — 
+                где право становится не ограничением, а инструментом для инноваций и роста.
               </p>
-              <p className="text-xl text-gray-700 leading-relaxed">
-                Мы не просто предоставляем юридические услуги — мы становимся вашими 
-                <span className="text-blue-600 font-semibold"> стратегическими партнерами</span> в бизнесе и надежными защитниками ваших интересов.
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                Наша команда объединяет <span className="text-cyan-300 font-medium">юридическую экспертизу</span> с 
+                <span className="text-violet-300 font-medium"> технологическим мышлением</span>, 
+                превращая сложные вызовы в конкурентные преимущества.
               </p>
             </div>
 
-            {/* Достижения */}
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Наши достижения:</h3>
-              <div className="space-y-3">
-                {achievements.map((achievement, index) => (
+            {/* Анимированные метрики */}
+            <div className={`mb-12 transition-all duration-1000 delay-800 ${
+              isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
+            }`}>
+              <div className="grid grid-cols-2 gap-4">
+                {metrics.map((metric, index) => (
                   <div 
                     key={index}
-                    className="flex items-start space-x-3 transform transition-all duration-500"
-                    style={{ transitionDelay: `${index * 100 + 800}ms` }}
-                  >
-                    <StarSolid className="h-5 w-5 text-yellow-400 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{achievement}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Особенности */}
-            <div className="space-y-4 mb-8">
-              {features.map((feature, index) => (
-                <div 
-                  key={index}
-                  className={`flex items-start space-x-4 transform transition-all duration-500 ${
-                    isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
-                  }`}
-                  style={{ transitionDelay: `${feature.delay}ms` }}
-                >
-                  <div className="flex-shrink-0 w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center group hover:bg-blue-50 hover:shadow-xl transition duration-300 border border-gray-100">
-                    <feature.icon className="h-6 w-6 text-blue-600 group-hover:scale-110 transition-transform" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-1">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Статистика с анимацией */}
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {stats.map((stat, index) => (
-                  <div 
-                    key={index}
-                    className={`text-center transform transition-all duration-500 ${
-                      isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-95'
-                    } ${
-                      currentStat === index ? 'scale-110' : 'scale-100'
+                    className={`relative group cursor-pointer transition-all duration-500 ${
+                      currentMetric === index ? 'scale-105' : 'scale-100'
                     }`}
-                    style={{ transitionDelay: `${index * 100 + 500}ms` }}
+                    onMouseEnter={() => setCurrentMetric(index)}
                   >
-                    <div className={`w-12 h-12 ${stat.bg} rounded-xl flex items-center justify-center mx-auto mb-2 transition duration-300 ${
-                      currentStat === index ? 'scale-110 shadow-lg' : ''
-                    }`}>
-                      <stat.icon className={`h-6 w-6 ${stat.color} transition duration-300 ${
-                        currentStat === index ? 'scale-110' : ''
-                      }`} />
+                    <div className={`absolute -inset-0.5 bg-gradient-to-r ${metric.color} rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-500`}></div>
+                    <div className="relative bg-gradient-to-b from-gray-900/50 to-gray-900/30 border border-gray-800/50 rounded-xl p-5 backdrop-blur-sm transition-all duration-500 group-hover:border-gray-700/80">
+                      <div className={`text-3xl lg:text-4xl font-bold mb-2 bg-gradient-to-r ${metric.color} bg-clip-text text-transparent`}>
+                        {metric.number}
+                      </div>
+                      <div className="text-sm text-gray-300 font-medium mb-1">{metric.label}</div>
+                      <div className="text-xs text-gray-500">{metric.change}</div>
+                      
+                      {/* Активный индикатор */}
+                      {currentMetric === index && (
+                        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full animate-pulse"></div>
+                      )}
                     </div>
-                    <div className="text-xl md:text-2xl font-bold text-gray-900 mb-1">{stat.number}</div>
-                    <div className="text-xs text-gray-600 font-medium">{stat.label}</div>
                   </div>
                 ))}
               </div>
-              
-              {/* Индикатор переключения */}
+
+              {/* Прогресс индикатор */}
               <div className="flex justify-center mt-4 space-x-1">
-                {stats.map((_, index) => (
+                {metrics.map((_, index) => (
                   <div
                     key={index}
-                    className={`w-2 h-2 rounded-full transition duration-300 ${
-                      currentStat === index ? 'bg-blue-600 scale-125' : 'bg-gray-300'
+                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      currentMetric === index 
+                        ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 scale-125' 
+                        : 'bg-gray-700 hover:bg-gray-600'
                     }`}
+                    onClick={() => setCurrentMetric(index)}
                   />
                 ))}
               </div>
             </div>
+
+            {/* Ключевые фичи */}
+            <div className={`space-y-4 transition-all duration-1000 delay-1000 ${
+              isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
+            }`}>
+              {features.map((feature, index) => (
+                <div 
+                  key={index}
+                  className="group relative"
+                  onMouseEnter={() => setHoveredFeature(index)}
+                  onMouseLeave={() => setHoveredFeature(null)}
+                >
+                  <div className={`absolute -inset-0.5 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-300 rounded-xl blur opacity-0 group-hover:opacity-20 transition duration-500`}></div>
+                  <div className={`relative bg-gradient-to-b from-gray-900/30 to-gray-900/10 border ${
+                    hoveredFeature === index ? `border-${feature.color}-500/30` : 'border-gray-800/50'
+                  } rounded-xl p-5 backdrop-blur-sm transition-all duration-300 group-hover:translate-x-2`}>
+                    <div className="flex items-start space-x-4">
+                      <div className={`flex-shrink-0 w-12 h-12 bg-gradient-to-br from-${feature.color}-500/10 to-${feature.color}-300/10 border border-${feature.color}-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                        <feature.icon className={`h-6 w-6 text-${feature.color}-400`} />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                          {feature.title}
+                        </h3>
+                        <p className="text-gray-400 text-sm leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Фото команды с эффектами */}
-          <div className={`relative transform transition-all duration-1000 delay-500 ${
+          {/* Правый блок - Фото и достижения */}
+          <div className={`transition-all duration-1000 delay-700 ${
             isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
           }`}>
-            {/* Основное фото */}
-            <div className="relative group">
-              {/* Градиентная обводка */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 rounded-3xl blur-lg opacity-70 group-hover:opacity-100 transition duration-1000 animate-pulse"></div>
+            {/* Фото с эффектами */}
+            <div className="relative group mb-12">
+              <div className="absolute -inset-4">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-violet-500/10 rounded-3xl blur-xl group-hover:blur-2xl transition duration-700"></div>
+              </div>
               
-              {/* Основное изображение */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl transform group-hover:scale-[1.02] transition duration-700">
+              <div className="relative rounded-2xl overflow-hidden border border-gray-800/50 backdrop-blur-sm transform group-hover:scale-[1.01] transition duration-700">
                 <img 
                   src={groupPhoto}
-                  alt="Наша команда профессиональных юристов" 
-                  className="w-full h-[600px] object-cover transform group-hover:scale-105 transition duration-1000"
+                  alt="Команда стратегических архитекторов" 
+                  className="w-full h-[500px] object-cover transform group-hover:scale-105 transition duration-1000"
                 />
                 
                 {/* Наложение с информацией */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8">
-                  <h3 className="text-white text-2xl font-bold mb-2">Сильная команда — гарантия успеха</h3>
-                  <p className="text-blue-200 text-lg mb-4">Объединенные экспертизой, движимые результатом</p>
-                  <div className="flex items-center text-white/80">
-                    <UserGroupIcon className="h-5 w-5 mr-2" />
-                    <span>15+ профессиональных юристов</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-6">
+                  <div className="flex items-center space-x-2 mb-3">
+                    <UserGroupIcon className="h-5 w-5 text-emerald-400" />
+                    <span className="text-sm font-medium text-emerald-300">СТРАТЕГИЧЕСКАЯ КОМАНДА</span>
+                  </div>
+                  <h3 className="text-white text-2xl font-bold mb-2">Эксперты будущего</h3>
+                  <p className="text-gray-300 text-sm mb-4">Объединяем правовую экспертизу с технологическим видением</p>
+                  <div className="flex items-center text-gray-400 text-sm">
+                    <BoltIcon className="h-4 w-4 mr-2" />
+                    <span>Средний опыт эксперта: 12+ лет</span>
                   </div>
                 </div>
               </div>
 
               {/* Плавающие элементы */}
-              <div className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-2xl p-6 transform hover:scale-105 transition duration-300 z-20 group-hover:rotate-12">
+              <div className="absolute -top-5 -right-5 bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 backdrop-blur-sm border border-emerald-500/20 rounded-2xl p-5 transform group-hover:-rotate-6 transition duration-500 z-20">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                    <ShieldCheckIcon className="h-6 w-6 text-green-600" />
+                  <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-500/10 border border-emerald-500/30 rounded-xl p-2">
+                    <SparklesIcon className="h-5 w-5 text-emerald-400" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">100%</div>
-                    <div className="text-sm text-gray-600 font-medium">Конфиденциальность</div>
+                    <div className="text-xl font-bold text-white">Инновации</div>
+                    <div className="text-xs text-gray-400">в каждом решении</div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-2xl p-6 transform hover:scale-105 transition duration-300 delay-200 z-20 group-hover:-rotate-12">
+              <div className="absolute -bottom-5 -left-5 bg-gradient-to-br from-violet-500/10 to-purple-500/10 backdrop-blur-sm border border-violet-500/20 rounded-2xl p-5 transform group-hover:rotate-6 transition duration-500 z-20">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <TrophyIcon className="h-6 w-6 text-blue-600" />
+                  <div className="bg-gradient-to-br from-violet-500/20 to-violet-500/10 border border-violet-500/30 rounded-xl p-2">
+                    <LightBulbIcon className="h-5 w-5 text-violet-400" />
                   </div>
                   <div>
-                    <div className="text-xl font-bold text-gray-900">Лидеры</div>
-                    <div className="text-sm text-gray-600 font-medium">в своей области</div>
+                    <div className="text-xl font-bold text-white">Прозрачность</div>
+                    <div className="text-xs text-gray-400">полная отчетность</div>
                   </div>
                 </div>
               </div>
-
-              {/* Анимированные декоративные элементы */}
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-yellow-400/20 rounded-full animate-ping"></div>
-              <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-blue-400/20 rounded-full animate-ping delay-1000"></div>
             </div>
 
-            {/* Подпись под фото */}
-            <div className="text-center mt-6">
-              <p className="text-gray-600 italic">
-                "Объединяем лучших специалистов для решения ваших самых сложных задач"
-              </p>
+            {/* Достижения */}
+            <div className="space-y-4">
+              {achievements.map((achievement, index) => (
+                <div 
+                  key={index}
+                  className="group relative"
+                >
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-500/5 to-cyan-500/5 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                  <div className="relative bg-gradient-to-b from-gray-900/30 to-gray-900/10 border border-gray-800/50 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 group-hover:border-gray-700/80">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1 pr-4">
+                        <p className="text-gray-300 text-sm group-hover:text-emerald-100 transition-colors">
+                          {achievement.text}
+                        </p>
+                      </div>
+                      <div className="flex-shrink-0">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 text-emerald-300 border border-emerald-500/20">
+                          {achievement.year}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* CTA внизу секции */}
-        <div className={`mt-20 text-center transform transition-all duration-700 delay-1000 ${
+        {/* CTA секция */}
+        <div className={`mt-20 lg:mt-32 transition-all duration-1000 delay-1200 ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}>
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-gray-100 max-w-4xl mx-auto hover:shadow-3xl transition duration-500">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              Готовы работать с сильнейшей командой?
-            </h3>
-            <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
-              Оставьте заявку и получите бесплатную консультацию от наших ведущих экспертов
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-500/25 flex items-center justify-center">
-                <ArrowPathIcon className="h-5 w-5 mr-2" />
-                Получить консультацию
-              </button>
-              <button className="border-2 border-gray-300 hover:border-blue-600 text-gray-700 hover:text-blue-600 font-semibold py-4 px-8 rounded-xl transition duration-300 transform hover:scale-105 hover:shadow-lg">
-                Изучить наши кейсы
-              </button>
+          <div className="relative group">
+            <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-violet-500/10 rounded-3xl blur-2xl opacity-0 group-hover:opacity-50 transition duration-1000"></div>
+            <div className="relative bg-gradient-to-b from-gray-900/50 to-gray-900/30 backdrop-blur-xl rounded-2xl p-8 lg:p-12 border border-gray-800/50 overflow-hidden">
+              
+              {/* Анимированный фон CTA */}
+              <div className="absolute inset-0 opacity-20">
+                <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-xl"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-xl"></div>
+              </div>
+
+              <div className="relative text-center">
+                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                  Готовы к трансформации?
+                </h3>
+                <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                  Начните строить правовой фундамент для устойчивого роста уже сегодня
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <button className="group relative bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 font-medium py-4 px-8 rounded-xl transition-all duration-500 transform hover:scale-105 shadow-lg hover:shadow-emerald-500/25">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-cyan-600 rounded-xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
+                    <span className="relative flex items-center justify-center space-x-2">
+                      <ArrowPathIcon className="h-5 w-5" />
+                      <span>Начать стратегическую сессию</span>
+                    </span>
+                  </button>
+                  
+                  <button className="group relative border border-gray-700 hover:border-emerald-500/50 text-white hover:text-emerald-100 font-medium py-4 px-8 rounded-xl transition-all duration-500 backdrop-blur-sm bg-white/5 hover:bg-white/10">
+                    <span className="relative flex items-center justify-center space-x-2">
+                      <CursorArrowRaysIcon className="h-5 w-5" />
+                      <span>Изучить кейсы трансформации</span>
+                    </span>
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-emerald-500 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes scanVertical {
+          0%, 100% {
+            opacity: 0.2;
+            transform: translateY(-20px);
+          }
+          50% {
+            opacity: 0.5;
+            transform: translateY(20px);
+          }
+        }
+
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes spin-slower {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(-360deg);
+          }
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+
+        .animate-spin-slower {
+          animation: spin-slower 30s linear infinite;
+        }
+      `}</style>
     </section>
   );
 };

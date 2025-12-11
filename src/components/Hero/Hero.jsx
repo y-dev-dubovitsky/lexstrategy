@@ -1,133 +1,232 @@
 // components/Hero.jsx
-import hero from '../../assets/document_5233690569577892701.mp4';
-
-// components/Hero.jsx
-import { ChevronRightIcon, PlayCircleIcon } from '@heroicons/react/24/outline';
-import { useState, useEffect } from 'react';
+import { ArrowRightIcon, ShieldCheckIcon, ChartBarIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { useState, useEffect, useRef } from 'react';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Видео фон с затемнением и эффектами */}
-      <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          className="w-full h-full object-cover scale-105"
-          onLoadedData={() => setIsLoaded(true)}
-        >
-          <source src={hero} type="video/mp4" />
-          Ваш браузер не поддерживает видео.
-        </video>
-        
-        {/* Градиентное затемнение для лучшей читаемости */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 via-blue-800/50 to-purple-900/60"></div>
-        
-        {/* Анимированные элементы фона */}
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      {/* Абстрактный геометрический фон */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-gray-950 via-black to-gray-900">
+        {/* Геометрические узоры */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+                  <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#10b981" strokeWidth="0.5" opacity="0.3" />
+                </pattern>
+                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.1" />
+                  <stop offset="50%" stopColor="#0ea5e9" stopOpacity="0.05" />
+                  <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.1" />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+              <rect width="100%" height="100%" fill="url(#gradient)" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Анимированные линии */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"
+              style={{
+                width: '100%',
+                top: `${(i + 1) * 12.5}%`,
+                animation: `scanLine ${3 + i * 0.5}s ease-in-out infinite ${i * 0.2}s`,
+                filter: 'blur(1px)'
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Плавающие геометрические формы */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full opacity-20 animate-pulse"></div>
-          <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-blue-300 rounded-full opacity-30 animate-bounce"></div>
-          <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-white rounded-full opacity-10 animate-ping"></div>
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-emerald-500/10 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-cyan-500/10 rotate-45 animate-spin-slow"></div>
+          <div className="absolute top-1/3 right-1/3 w-24 h-24 border border-violet-500/10 rounded-lg animate-pulse delay-1000"></div>
         </div>
       </div>
 
       {/* Основной контент */}
-      <div className="relative z-10 text-center text-white max-w-6xl mx-auto px-4">
-        <div className={`transform transition-all duration-1000 ${
+      <div className="relative z-10 text-center text-white max-w-6xl mx-auto px-4 py-20">
+        <div className={`transform transition-all duration-700 ${
           isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}>
-          {/* Бейдж */}
-          <div className="inline-flex items-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2 mb-8">
-            <PlayCircleIcon className="h-4 w-4 mr-2" />
-            <span className="text-sm font-medium">Юридическая компания с 2016 года</span>
+          
+          {/* Верхний лейбл */}
+          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 rounded-full px-6 py-3 mb-12 backdrop-blur-sm">
+            <ShieldCheckIcon className="h-5 w-5 text-emerald-400" />
+            <span className="text-sm font-medium tracking-wider text-emerald-300">
+              Стратегическое партнерство для бизнеса
+            </span>
           </div>
 
-          {/* Главный заголовок с градиентом */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-blue-200">
-              Правовая
+          {/* Главный заголовок */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight">
+            <span className="block">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-emerald-100 to-cyan-100">
+                Преобразуем
+              </span>
             </span>
-            <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-blue-100">
-              уверенность
+            <span className="block mt-2">
+              <span className="relative">
+                <span className="absolute -inset-1 bg-gradient-to-r from-emerald-600/20 to-cyan-600/20 blur-xl rounded-full"></span>
+                <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-cyan-300 to-white">
+                  правовые вызовы
+                </span>
+              </span>
+            </span>
+            <span className="block mt-2 text-3xl md:text-4xl lg:text-5xl font-light text-gray-300">
+              в бизнес-возможности
             </span>
           </h1>
 
-          {/* Подзаголовок */}
-          <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto leading-relaxed font-light">
-            Комплексное юридическое сопровождение бизнеса. 
-            <span className="block text-blue-200 font-medium">Решаем сложные вопросы — вы занимаетесь своим делом.</span>
+          {/* Описание */}
+          <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed text-gray-300 font-light">
+            Мы создаем правовую архитектуру для масштабирования вашего бизнеса. 
+            <span className="block mt-3 text-emerald-300 font-medium">
+              От стратегического планирования до операционного совершенства.
+            </span>
           </p>
 
-          {/* Ключевые преимущества */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
+          {/* Ключевые показатели */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 max-w-4xl mx-auto">
             {[
-              { text: 'Опыт более 8 лет', highlight: '95%' },
-              { text: 'Успешных кейсов', highlight: '50+' },
-              { text: 'Довольных клиентов', highlight: '100%' }
+              { value: '300+', label: 'Проектов', icon: '🎯', color: 'emerald' },
+              { value: '8 лет', label: 'Опыта', icon: '⚡', color: 'cyan' },
+              { value: '95%', label: 'Успешных дел', icon: '📈', color: 'violet' },
+              { value: '24/7', label: 'Поддержка', icon: '🛡️', color: 'amber' }
             ].map((item, index) => (
               <div 
                 key={index}
-                className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 transform hover:scale-105 transition duration-300"
+                className="relative group"
               >
-                <div className="text-2xl font-bold text-blue-200 mb-1">{item.highlight}</div>
-                <div className="text-sm text-white/80">{item.text}</div>
+                <div className={`absolute -inset-0.5 bg-gradient-to-r from-${item.color}-500 to-${item.color}-300 rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-500`}></div>
+                <div className="relative bg-gradient-to-b from-gray-900/50 to-gray-900/30 border border-gray-800/50 rounded-xl p-4 backdrop-blur-sm hover:border-gray-700/80 transition-all duration-300">
+                  <div className="flex flex-col items-center">
+                    <div className={`text-3xl font-bold mb-1 bg-gradient-to-r from-${item.color}-300 to-${item.color}-200 bg-clip-text text-transparent`} style={{color: 'white'}}>
+                      {item.value}
+                    </div>
+                    <div className="text-sm text-gray-400 font-medium tracking-wide">{item.label}</div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
           {/* CTA кнопки */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="group bg-white text-blue-900 hover:bg-blue-50 font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex items-center">
-              Бесплатная консультация
-              <ChevronRightIcon className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <button className="group relative bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 font-bold py-4 px-10 rounded-xl text-lg transition-all duration-500 transform hover:scale-105 shadow-xl hover:shadow-emerald-500/20">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl blur opacity-0 group-hover:opacity-30 transition duration-500"></div>
+              <span className="relative flex items-center justify-center space-x-3">
+                <span>Начать стратегическую сессию</span>
+                <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-2 transition-transform duration-300" />
+              </span>
             </button>
             
-            <button className="group border-2 border-white text-white hover:bg-white/10 font-medium py-4 px-8 rounded-xl text-lg transition-all duration-300 backdrop-blur-sm">
-              Смотреть кейсы
+            <button className="group relative border border-gray-700 hover:border-emerald-500/50 text-white hover:text-emerald-100 font-medium py-4 px-10 rounded-xl text-lg transition-all duration-500 backdrop-blur-sm bg-white/5 hover:bg-white/10">
+              <span className="relative flex items-center justify-center space-x-3">
+                <ChartBarIcon className="h-5 w-5" />
+                <span>Смотреть результаты</span>
+              </span>
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-emerald-500 to-cyan-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
             </button>
           </div>
 
-          {/* Доверительные элементы */}
-          <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 text-white/70 text-sm">
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-              Онлайн консультации 24/7
-            </div>
-            <div className="hidden sm:block">•</div>
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-              Полная конфиденциальность
-            </div>
-            <div className="hidden sm:block">•</div>
-            <div className="flex items-center">
-              <div className="w-2 h-2 bg-purple-400 rounded-full mr-2"></div>
-              Результат гарантирован
-            </div>
+          {/* Ключевые направления */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                title: 'Корпоративное право',
+                desc: 'Структурирование сделок и корпоративное управление',
+                icon: '🏛️',
+                gradient: 'from-emerald-500/20 to-cyan-500/20'
+              },
+              {
+                title: 'Цифровая трансформация',
+                desc: 'Правовая поддержка IT и технологических проектов',
+                icon: '💻',
+                gradient: 'from-violet-500/20 to-purple-500/20'
+              },
+              {
+                title: 'Международная экспансия',
+                desc: 'Выход на новые рынки и трансграничные операции',
+                icon: '🌍',
+                gradient: 'from-blue-500/20 to-cyan-500/20'
+              }
+            ].map((service, index) => (
+              <div 
+                key={index}
+                className="group cursor-pointer"
+              >
+                <div className={`absolute -inset-0.5 bg-gradient-to-r ${service.gradient} rounded-xl blur opacity-0 group-hover:opacity-30 transition duration-500`}></div>
+                <div className="relative bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 rounded-xl p-6 transition-all duration-300 group-hover:border-gray-700/80 group-hover:translate-y-[-2px]">
+                  <div className="flex items-start space-x-4">
+                    <div className="text-3xl flex-shrink-0">{service.icon}</div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-sm text-gray-400 leading-relaxed">
+                        {service.desc}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Скролл индикатор */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-        <div className="animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/70 rounded-full mt-2"></div>
-          </div>
-        </div>
-      </div>
+      {/* Анимированные элементы */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-cyan-500/5 to-transparent rounded-full blur-3xl"></div>
 
-      {/* Дополнительные декоративные элементы */}
-      <div className="absolute top-20 right-20 w-32 h-32 bg-blue-400/10 rounded-full blur-xl"></div>
-      <div className="absolute bottom-20 left-20 w-24 h-24 bg-purple-400/10 rounded-full blur-xl"></div>
+      <style jsx>{`
+        @keyframes scanLine {
+          0% {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.5;
+          }
+          100% {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+        }
+
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+
+        .delay-1000 {
+          animation-delay: 1s;
+        }
+      `}</style>
     </section>
   );
 };
