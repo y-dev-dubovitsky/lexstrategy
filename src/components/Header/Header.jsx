@@ -49,7 +49,6 @@ const Header = () => {
   const navItems = [
     { name: 'Услуги', id: 'services', icon: '⚖️' },
     { name: 'Кейсы', id: 'cases', icon: '📊' },
-    { name: 'Подход', id: 'about', icon: '🎯' },
     { name: 'Отзывы', id: 'testimonials', icon: '💬' },
     { name: 'Контакты', id: 'contact', icon: '📍' },
   ];
